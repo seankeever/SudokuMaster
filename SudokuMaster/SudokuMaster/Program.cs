@@ -12,24 +12,38 @@ namespace SudokuMaster
     {
         static void Main(string[] args)
         {
-            string puzzlePath = @"C:\Users\sean\source\repos\SudokuSolver\Puzzles\";
-            string puzzleName = "puzzle4.txt";
+            string puzzlePath = @"C:\Repos\SudokuMaster\Puzzles\";
+            string puzzleName = "puzzle5.txt";
             
             SudokuGrid grid = LogicService.InitializePuzzle(puzzlePath,puzzleName);
 
-            int count = 0;
-            while (!grid.IsSolved)
+            if(grid!=null)
             {
-                LogicService.NarrowDownCanidates(ref grid);
-                while(LogicService.PopulateSingledOutCanidates(ref grid))
-                    ValidationService.CheckIfSolved(ref grid);
-                count++;
-                if (count == (9 * 81))
-                    LogicService.TakeAGuess(ref grid);
+                int count = 0;
+                while (!grid.IsSolved)
+                {
+                    LogicService.NarrowDownCanidates(ref grid);
+                    while (LogicService.PopulateSingledOutCanidates(ref grid))
+                        ValidationService.CheckIfSolved(ref grid);
+                    count++;
+                    if (count == (9 * 81))
+                    {
+                        Console.WriteLine("Puzzle could not be solved without guessing");
+                        Console.WriteLine("Puzzle could potentially be solved with recursive backtracking algorithm comming in version 2");
+                        break;
+                    }
+                }
+                if(grid.IsSolved)
+                {
+                    bool wasExported = ImportExportService.ExportCompletedPuzzleSolution(grid, puzzlePath + puzzleName);
+                    if (wasExported)
+                    {
+                        Console.WriteLine("Puzzle Solved, Solution exported to " + puzzlePath + "\nSolution is printed bellow for your reference");
+                        PrintingService.PrintGrid(grid);
+                    }
+                }
             }
-            ImportExportService.ExportCompletedPuzzleSolution(grid, puzzlePath+puzzleName);
         }
-
     }
 }
 //static void Main(string[] args)

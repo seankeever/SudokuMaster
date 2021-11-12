@@ -90,30 +90,40 @@ namespace SudokuMaster.Services
 
         public static SudokuGrid InitializePuzzle(string puzzlePath, string puzzleName)
         {
-            StreamReader st = new StreamReader(puzzlePath + puzzleName);
-            List<string> rows = new List<string>();
-            rows.Add("Blank Row to fill up 0'th row index to improve understandability");
-            while (!st.EndOfStream)
-                rows.Add("_" + st.ReadLine());
-
-            SudokuGrid grid = new SudokuGrid();
-
-            for (int row = 1; row <= 9; row++)
+            try
             {
-                for (int column = 1; column <= 9; column++)
+                StreamReader st = new StreamReader(puzzlePath + puzzleName);
+                List<string> rows = new List<string>();
+                rows.Add("Blank Row to fill up 0'th row index to improve understandability");
+                while (!st.EndOfStream)
+                    rows.Add("_" + st.ReadLine());
+
+                SudokuGrid grid = new SudokuGrid();
+
+                for (int row = 1; row <= 9; row++)
                 {
-                    string currentInputValue = rows[row][column].ToString();
-                    if (currentInputValue != "X")
+                    for (int column = 1; column <= 9; column++)
                     {
-                        int permanentValue = int.Parse(currentInputValue.ToString());
-                        SudokuSquare currentSquare = grid.GetSquareAt(row, column);
-                        currentSquare.Value = permanentValue;
-                        currentSquare.IsSet = true;
+                        string currentInputValue = rows[row][column].ToString();
+                        if (currentInputValue != "X")
+                        {
+                            int permanentValue = int.Parse(currentInputValue.ToString());
+                            SudokuSquare currentSquare = grid.GetSquareAt(row, column);
+                            currentSquare.Value = permanentValue;
+                            currentSquare.IsSet = true;
+                        }
                     }
                 }
-            }
 
-            return grid;
+                return grid;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Message:" + ex.Message);
+                Console.WriteLine("Inner Exception:" + ex.InnerException);
+                Console.WriteLine("Stack Trace:" + ex.StackTrace);
+            }
+            return null;
         }
 
 

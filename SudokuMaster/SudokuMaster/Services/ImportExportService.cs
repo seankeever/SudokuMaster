@@ -10,7 +10,7 @@ namespace SudokuMaster.Services
 {
     public static class ImportExportService
     {
-        public static void ExportCompletedPuzzleSolution(SudokuGrid grid, string originPath)
+        public static bool ExportCompletedPuzzleSolution(SudokuGrid grid, string originPath)
         {
             string allText = string.Empty;
             for (int row = 1; row <= 9; row++)
@@ -27,6 +27,10 @@ namespace SudokuMaster.Services
             }
             string fullPath = originPath.Substring(0, originPath.Length - 3) + "sln.txt";
             File.WriteAllText(fullPath,allText);
+            if (File.Exists(fullPath))
+                return true;
+            else
+                return false;
         }
     }
 }
