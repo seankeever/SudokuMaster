@@ -12,8 +12,8 @@ namespace SudokuMaster
     {
         static void Main(string[] args)
         {
-            string puzzlePath = @"C:\Repos\SudokuMasterz\Puzzles\";
-            string puzzleName = "puzzle5.txt";
+            string puzzlePath = @"C:\Repos\SudokuMaster\Puzzles\";
+            string puzzleName = "puzzle1.txt";
             
             SudokuGrid grid = LogicService.InitializePuzzle(puzzlePath,puzzleName);
 
@@ -38,7 +38,7 @@ namespace SudokuMaster
                     bool wasExported = ImportExportService.ExportCompletedPuzzleSolution(grid, puzzlePath + puzzleName);
                     if (wasExported)
                     {
-                        Console.WriteLine("Puzzle Solved, Solution exported to " + puzzlePath + "\nSolution is printed bellow for your reference");
+                        Console.WriteLine("Puzzle Solved, Solution exported to " + puzzlePath + "\n\nSolution is printed bellow for your reference\n");
                         PrintingService.PrintGrid(grid);
                     }
                 }
