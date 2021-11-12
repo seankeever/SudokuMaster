@@ -12,7 +12,7 @@ namespace SudokuMaster
     {
         static void Main(string[] args)
         {
-            string puzzlePath = @"C:\Repos\SudokuMaster\Puzzles\";
+            string puzzlePath = @"C:\Repos\SudokuMasterz\Puzzles\";
             string puzzleName = "puzzle5.txt";
             
             SudokuGrid grid = LogicService.InitializePuzzle(puzzlePath,puzzleName);

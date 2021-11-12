@@ -119,8 +119,9 @@ namespace SudokuMaster.Services
             }
             catch(Exception ex)
             {
-                Console.WriteLine("Message:" + ex.Message);
-                Console.WriteLine("Inner Exception:" + ex.InnerException);
+                Console.WriteLine("Error Initializing Puzzle" + "\n");
+                Console.WriteLine("Message:" + ex.Message + "\n");
+                Console.WriteLine("Inner Exception:" + ex.InnerException + "\n");
                 Console.WriteLine("Stack Trace:" + ex.StackTrace);
             }
             return null;
