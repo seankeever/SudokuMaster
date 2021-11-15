@@ -14,7 +14,7 @@ namespace SudokuMaster
         {
             string puzzleDir = @"C:\Users\seant\Source\Repos\SudokuMaster\Puzzles\"; // For Sean
             //string puzzleDir = @"../Puzzles/"; // For UNIX-style FS with curdir SudokuMaster
-            string puzzleName = "puzzle4.txt";
+            string puzzleName = "puzzle5.txt";
             string puzzlePath = puzzleDir + puzzleName;
             if (args.Length > 0) puzzlePath = args[0]; // override puzzlePath by providing as first arg
 
