@@ -12,52 +12,27 @@ namespace SudokuMaster
     {
         static void Main(string[] args)
         {
-            string puzzlePath = @"C:\Repos\SudokuMaster\Puzzles\";
-            string puzzleName = "puzzle1.txt";
-            
-            SudokuGrid grid = LogicService.InitializePuzzle(puzzlePath,puzzleName);
+            string puzzleDir = @"C:\Users\seant\Source\Repos\SudokuMaster\Puzzles\"; // For Sean
+            //string puzzleDir = @"../Puzzles/"; // For UNIX-style FS with curdir SudokuMaster
+            string puzzleName = "puzzle4.txt";
+            string puzzlePath = puzzleDir + puzzleName;
+            if (args.Length > 0) puzzlePath = args[0]; // override puzzlePath by providing as first arg
 
-            if(grid!=null)
+            SudokuGrid grid = LogicService.InitializePuzzle(puzzlePath);
+            if (LogicService.FastSolve(grid))
+                grid.IsSolved = true;
+            else
             {
-                int count = 0;
-                while (!grid.IsSolved)
-                {
-                    LogicService.NarrowDownCanidates(ref grid);
-                    while (LogicService.PopulateSingledOutCanidates(ref grid))
-                        ValidationService.CheckIfSolved(ref grid);
-                    count++;
-                    if (count == (9 * 81))
-                    {
-                        Console.WriteLine("Puzzle could not be solved without guessing");
-                        Console.WriteLine("Puzzle could potentially be solved with recursive backtracking algorithm comming in version 2");
-                        break;
-                    }
-                }
-                if(grid.IsSolved)
-                {
-                    bool wasExported = ImportExportService.ExportCompletedPuzzleSolution(grid, puzzlePath + puzzleName);
-                    if (wasExported)
-                    {
-                        Console.WriteLine("Puzzle Solved, Solution exported to " + puzzlePath + "\n\nSolution is printed bellow for your reference\n");
-                        PrintingService.PrintGrid(grid);
-                    }
-                }
+                Console.WriteLine("No solution");
+                System.Environment.Exit(1);
+            } 
+
+            if (ImportExportService.ExportCompletedPuzzleSolution(grid, puzzlePath))
+            {
+                Console.WriteLine("Puzzle Solved, Solution exported to " + puzzleDir + "\n\nSolution is printed bellow for your reference\n");
+                PrintingService.PrintGrid(grid);
             }
         }
     }
+
 }
-//static void Main(string[] args)
-//{
-//    string puzzlePath = @"C:\Users\sean\source\repos\SudokuSolver\Puzzles\";
-//    string puzzleName = "puzzle4.txt";
-
-//    SudokuGrid grid = LogicService.InitializePuzzle(puzzlePath, puzzleName);
-
-//    while (!grid.IsSolved)
-//    {
-//        LogicService.NarrowDownCanidates(ref grid);
-//        while (LogicService.PopulateSingledOutCanidates(ref grid))
-//            ValidationService.CheckIfSolved(ref grid);
-//    }
-//    ImportExportService.ExportCompletedPuzzleSolution(grid, puzzlePath + puzzleName);
-//}

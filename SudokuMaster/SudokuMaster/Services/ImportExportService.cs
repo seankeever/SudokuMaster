@@ -20,13 +20,13 @@ namespace SudokuMaster.Services
                 {
                     currentLine += grid.GetSquareAt(row, column).Value.ToString();
                 }
-                if(row<9)
+                if (row < 9)
                     allText += currentLine + "\n";
                 else
                     allText += currentLine;
             }
             string fullPath = originPath.Substring(0, originPath.Length - 3) + "sln.txt";
-            File.WriteAllText(fullPath,allText);
+            File.WriteAllText(fullPath, allText);
             if (File.Exists(fullPath))
                 return true;
             else
